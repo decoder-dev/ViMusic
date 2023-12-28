@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package it.vfsfitvnm.vimusic.ui.styling
 
 import androidx.compose.runtime.Immutable

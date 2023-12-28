@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:ignore="ImpliedTouchscreenHardware">
+
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -19,13 +25,13 @@
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
-        android:banner="@mipmap/ic_banner"
+        android:banner="@drawable/airplane"
         android:configChanges="colorMode|density|fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_round"
         android:label="${appName}"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="false"
+        android:supportsRtl="true"
         android:theme="@style/Theme.ViMusic.NoActionBar">
 
         <activity
@@ -48,58 +54,50 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:host="music.youtube.com"
-                    android:pathPrefix="/playlist"
-                    android:scheme="https" />
-                <data
-                    android:host="www.youtube.com"
-                    android:pathPrefix="/playlist"
-                    android:scheme="https" />
-                <data
-                    android:host="m.youtube.com"
-                    android:pathPrefix="/playlist"
-                    android:scheme="https" />
-                <data
-                    android:host="music.youtube.com"
-                    android:pathPrefix="/watch"
-                    android:scheme="https" />
-                <data
-                    android:host="www.youtube.com"
-                    android:pathPrefix="/watch"
-                    android:scheme="https" />
-                <data
-                    android:host="m.youtube.com"
-                    android:pathPrefix="/watch"
-                    android:scheme="https" />
-                <data
-                    android:host="youtu.be"
-                    android:pathPrefix="/"
-                    android:scheme="https" />
-                <data
-                    android:host="music.youtube.com"
-                    android:pathPrefix="/channel"
-                    android:scheme="https" />
-                <data
-                    android:host="www.youtube.com"
-                    android:pathPrefix="/channel"
-                    android:scheme="https" />
-                <data
-                    android:host="m.youtube.com"
-                    android:pathPrefix="/c"
-                    android:scheme="https" />
+                <data android:scheme="https"/>
+                <data android:host="music.youtube.com"/>
+                <data android:pathPrefix="/playlist"/>
+                <data android:scheme="https"/>
+                <data android:host="www.youtube.com"/>
+                <data android:pathPrefix="/playlist"/>
+                <data android:scheme="https"/>
+                <data android:host="m.youtube.com"/>
+                <data android:pathPrefix="/playlist"/>
+                <data android:scheme="https"/>
+                <data android:host="music.youtube.com"/>
+                <data android:pathPrefix="/watch"/>
+                <data android:scheme="https"/>
+                <data android:host="www.youtube.com"/>
+                <data android:pathPrefix="/watch"/>
+                <data android:scheme="https"/>
+                <data android:host="m.youtube.com"/>
+                <data android:pathPrefix="/watch"/>
+                <data android:scheme="https"/>
+                <data android:host="youtu.be"/>
+                <data android:pathPrefix="/"/>
+                <data android:scheme="https"/>
+                <data android:host="music.youtube.com"/>
+                <data android:pathPrefix="/channel"/>
+                <data android:scheme="https"/>
+                <data android:host="www.youtube.com"/>
+                <data android:pathPrefix="/channel"/>
+                <data android:scheme="https"/>
+                <data android:host="m.youtube.com"/>
+                <data android:pathPrefix="/c"/>
             </intent-filter>
         </activity>
 
         <service
             android:name=".service.PlayerService"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback"></service>
+            android:foregroundServiceType="mediaPlayback" />
 
         <service
             android:name=".service.PlayerMediaBrowserService"
             android:enabled="false"
-            android:exported="true">
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedService">
             <intent-filter>
                 <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
@@ -115,7 +113,7 @@
 
         <meta-data
             android:name="com.google.android.gms.car.notification.SmallIcon"
-            android:resource="@drawable/app_icon" />
+            android:resource="@drawable/heart" />
 
     </application>
 </manifest>

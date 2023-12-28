@@ -28,7 +28,8 @@ val Innertube.SongItem.asMediaItem: MediaItem
                     bundleOf(
                         "albumId" to album?.endpoint?.browseId,
                         "durationText" to durationText,
-                        "artistNames" to authors?.filter { it.endpoint != null }?.mapNotNull { it.name },
+                        "artistNames" to authors?.filter { it.endpoint != null }
+                            ?.mapNotNull { it.name },
                         "artistIds" to authors?.mapNotNull { it.endpoint?.browseId },
                     )
                 )
@@ -49,7 +50,8 @@ val Innertube.VideoItem.asMediaItem: MediaItem
                 .setExtras(
                     bundleOf(
                         "durationText" to durationText,
-                        "artistNames" to if (isOfficialMusicVideo) authors?.filter { it.endpoint != null }?.mapNotNull { it.name } else null,
+                        "artistNames" to if (isOfficialMusicVideo) authors?.filter { it.endpoint != null }
+                            ?.mapNotNull { it.name } else null,
                         "artistIds" to if (isOfficialMusicVideo) authors?.mapNotNull { it.endpoint?.browseId } else null,
                     )
                 )
@@ -95,7 +97,8 @@ suspend fun Result<Innertube.PlaylistOrAlbumPage>.completed(): Result<Innertube.
 
     while (playlistPage.songsPage?.continuation != null) {
         val continuation = playlistPage.songsPage?.continuation!!
-        val otherPlaylistPageResult = Innertube.playlistPage(ContinuationBody(continuation = continuation)) ?: break
+        val otherPlaylistPageResult =
+            Innertube.playlistPage(ContinuationBody(continuation = continuation)) ?: break
 
         if (otherPlaylistPageResult.isFailure) break
 

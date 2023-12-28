@@ -37,6 +37,7 @@
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
@@ -93,14 +94,14 @@
         <service
             android:name=".service.PlayerService"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback">
-        </service>
+            android:foregroundServiceType="mediaPlayback"></service>
 
-        <service android:name=".service.PlayerMediaBrowserService"
-            android:exported="true"
-            android:enabled="false">
+        <service
+            android:name=".service.PlayerMediaBrowserService"
+            android:enabled="false"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.media.browse.MediaBrowserService"/>
+                <action android:name="android.media.browse.MediaBrowserService" />
             </intent-filter>
         </service>
 
@@ -108,10 +109,12 @@
             android:name=".service.PlayerService$NotificationDismissReceiver"
             android:exported="false" />
 
-        <meta-data android:name="com.google.android.gms.car.application"
-            android:resource="@xml/automotive_app_desc"/>
+        <meta-data
+            android:name="com.google.android.gms.car.application"
+            android:resource="@xml/automotive_app_desc" />
 
-        <meta-data android:name="com.google.android.gms.car.notification.SmallIcon"
+        <meta-data
+            android:name="com.google.android.gms.car.notification.SmallIcon"
             android:resource="@drawable/app_icon" />
 
     </application>

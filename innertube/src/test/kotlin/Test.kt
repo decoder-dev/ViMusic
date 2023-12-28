@@ -1,8 +1,8 @@
 import kotlinx.coroutines.runBlocking
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class Test {
-    @Test
+    @org.junit.jupiter.api.Test
     @Throws(Exception::class)
     fun test() = runBlocking {
 

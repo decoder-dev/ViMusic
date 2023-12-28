@@ -4,7 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 
-class SynchronizedLyrics(val sentences: List<Pair<Long, String>>, private val positionProvider: () -> Long) {
+class SynchronizedLyrics(
+    val sentences: List<Pair<Long, String>>,
+    private val positionProvider: () -> Long
+) {
     var index by mutableStateOf(currentIndex)
         private set
 

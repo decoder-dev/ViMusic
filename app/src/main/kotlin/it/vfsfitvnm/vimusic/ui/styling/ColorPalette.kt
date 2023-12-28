@@ -93,6 +93,7 @@ fun colorPaletteOf(
                 false -> DefaultLightColorPalette
             }
         }
+
         ColorPaletteName.PureBlack -> PureBlackColorPalette
     }
 }
@@ -128,7 +129,11 @@ fun dynamicColorPaletteOf(bitmap: Bitmap, isDark: Boolean): ColorPalette? {
 }
 
 fun dynamicColorPaletteOf(hsl: FloatArray, isDark: Boolean): ColorPalette {
-    return colorPaletteOf(ColorPaletteName.Dynamic, if (isDark) ColorPaletteMode.Dark else ColorPaletteMode.Light, false).copy(
+    return colorPaletteOf(
+        ColorPaletteName.Dynamic,
+        if (isDark) ColorPaletteMode.Dark else ColorPaletteMode.Light,
+        false
+    ).copy(
         background0 = Color.hsl(hsl[0], hsl[1].coerceAtMost(0.1f), if (isDark) 0.10f else 0.925f),
         background1 = Color.hsl(hsl[0], hsl[1].coerceAtMost(0.3f), if (isDark) 0.15f else 0.90f),
         background2 = Color.hsl(hsl[0], hsl[1].coerceAtMost(0.4f), if (isDark) 0.2f else 0.85f),

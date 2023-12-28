@@ -46,8 +46,8 @@ import androidx.compose.ui.unit.dp
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import coil.compose.AsyncImage
-import it.vfsfitvnm.innertube.models.NavigationEndpoint
 import it.vfsfitvnm.compose.routing.OnGlobalRoute
+import it.vfsfitvnm.innertube.models.NavigationEndpoint
 import it.vfsfitvnm.vimusic.LocalPlayerServiceBinder
 import it.vfsfitvnm.vimusic.R
 import it.vfsfitvnm.vimusic.service.PlayerService
@@ -63,6 +63,7 @@ import it.vfsfitvnm.vimusic.ui.styling.collapsedPlayerProgressBar
 import it.vfsfitvnm.vimusic.ui.styling.px
 import it.vfsfitvnm.vimusic.utils.DisposableListener
 import it.vfsfitvnm.vimusic.utils.forceSeekToNext
+import it.vfsfitvnm.vimusic.utils.forceSeekToPrevious
 import it.vfsfitvnm.vimusic.utils.isLandscape
 import it.vfsfitvnm.vimusic.utils.positionAndDurationState
 import it.vfsfitvnm.vimusic.utils.seamlessPlay
@@ -202,6 +203,14 @@ fun Player(
                     modifier = Modifier
                         .height(Dimensions.collapsedPlayer)
                 ) {
+                    IconButton(
+                        icon = R.drawable.play_skip_back,
+                        color = colorPalette.text,
+                        onClick = binder.player::forceSeekToPrevious,
+                        modifier = Modifier
+                            .padding(horizontal = 4.dp, vertical = 8.dp)
+                            .size(20.dp)
+                    )
                     IconButton(
                         icon = if (shouldBePlaying) R.drawable.pause else R.drawable.play,
                         color = colorPalette.text,

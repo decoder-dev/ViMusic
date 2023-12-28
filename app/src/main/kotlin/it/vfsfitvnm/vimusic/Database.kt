@@ -38,7 +38,6 @@ import it.vfsfitvnm.vimusic.enums.SongSortBy
 import it.vfsfitvnm.vimusic.enums.SortOrder
 import it.vfsfitvnm.vimusic.models.Album
 import it.vfsfitvnm.vimusic.models.Artist
-import it.vfsfitvnm.vimusic.models.SongWithContentLength
 import it.vfsfitvnm.vimusic.models.Event
 import it.vfsfitvnm.vimusic.models.Format
 import it.vfsfitvnm.vimusic.models.Info
@@ -52,8 +51,8 @@ import it.vfsfitvnm.vimusic.models.Song
 import it.vfsfitvnm.vimusic.models.SongAlbumMap
 import it.vfsfitvnm.vimusic.models.SongArtistMap
 import it.vfsfitvnm.vimusic.models.SongPlaylistMap
+import it.vfsfitvnm.vimusic.models.SongWithContentLength
 import it.vfsfitvnm.vimusic.models.SortedSongPlaylistMap
-import kotlin.jvm.Throws
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -96,10 +95,12 @@ interface Database {
                 SortOrder.Ascending -> songsByPlayTimeAsc()
                 SortOrder.Descending -> songsByPlayTimeDesc()
             }
+
             SongSortBy.Title -> when (sortOrder) {
                 SortOrder.Ascending -> songsByTitleAsc()
                 SortOrder.Descending -> songsByTitleDesc()
             }
+
             SongSortBy.DateAdded -> when (sortOrder) {
                 SortOrder.Ascending -> songsByRowIdAsc()
                 SortOrder.Descending -> songsByRowIdDesc()
@@ -163,6 +164,7 @@ interface Database {
                 SortOrder.Ascending -> artistsByNameAsc()
                 SortOrder.Descending -> artistsByNameDesc()
             }
+
             ArtistSortBy.DateAdded -> when (sortOrder) {
                 SortOrder.Ascending -> artistsByRowIdAsc()
                 SortOrder.Descending -> artistsByRowIdDesc()
@@ -205,10 +207,12 @@ interface Database {
                 SortOrder.Ascending -> albumsByTitleAsc()
                 SortOrder.Descending -> albumsByTitleDesc()
             }
+
             AlbumSortBy.Year -> when (sortOrder) {
                 SortOrder.Ascending -> albumsByYearAsc()
                 SortOrder.Descending -> albumsByYearDesc()
             }
+
             AlbumSortBy.DateAdded -> when (sortOrder) {
                 SortOrder.Ascending -> albumsByRowIdAsc()
                 SortOrder.Descending -> albumsByRowIdDesc()
@@ -256,10 +260,12 @@ interface Database {
                 SortOrder.Ascending -> playlistPreviewsByNameAsc()
                 SortOrder.Descending -> playlistPreviewsByNameDesc()
             }
+
             PlaylistSortBy.SongCount -> when (sortOrder) {
                 SortOrder.Ascending -> playlistPreviewsByDateSongCountAsc()
                 SortOrder.Descending -> playlistPreviewsByDateSongCountDesc()
             }
+
             PlaylistSortBy.DateAdded -> when (sortOrder) {
                 SortOrder.Ascending -> playlistPreviewsByDateAddedAsc()
                 SortOrder.Descending -> playlistPreviewsByDateAddedDesc()
@@ -282,7 +288,8 @@ interface Database {
     @Query("SELECT Song.*, contentLength FROM Song JOIN Format ON id = songId WHERE contentLength IS NOT NULL AND totalPlayTimeMs > 0 ORDER BY Song.ROWID DESC")
     fun songsWithContentLength(): Flow<List<SongWithContentLength>>
 
-    @Query("""
+    @Query(
+        """
         UPDATE SongPlaylistMap SET position = 
           CASE 
             WHEN position < :fromPosition THEN position + 1
@@ -290,7 +297,8 @@ interface Database {
             ELSE :toPosition
           END 
         WHERE playlistId = :playlistId AND position BETWEEN MIN(:fromPosition,:toPosition) and MAX(:fromPosition,:toPosition)
-    """)
+    """
+    )
     fun move(playlistId: Long, fromPosition: Int, toPosition: Int)
 
     @Query("DELETE FROM SongPlaylistMap WHERE playlistId = :id")
@@ -621,15 +629,16 @@ abstract class DatabaseInitializer protected constructor() : RoomDatabase() {
         override fun migrate(it: SupportSQLiteDatabase) {
             it.execSQL("CREATE TABLE IF NOT EXISTS Lyrics (`songId` TEXT NOT NULL, `fixed` TEXT, `synced` TEXT, PRIMARY KEY(`songId`), FOREIGN KEY(`songId`) REFERENCES `Song`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE)")
 
-            it.query(SimpleSQLiteQuery("SELECT id, lyrics, synchronizedLyrics FROM Song;")).use { cursor ->
-                val lyricsValues = ContentValues(3)
-                while (cursor.moveToNext()) {
-                    lyricsValues.put("songId", cursor.getString(0))
-                    lyricsValues.put("fixed", cursor.getString(1))
-                    lyricsValues.put("synced", cursor.getString(2))
-                    it.insert("Lyrics", CONFLICT_IGNORE, lyricsValues)
+            it.query(SimpleSQLiteQuery("SELECT id, lyrics, synchronizedLyrics FROM Song;"))
+                .use { cursor ->
+                    val lyricsValues = ContentValues(3)
+                    while (cursor.moveToNext()) {
+                        lyricsValues.put("songId", cursor.getString(0))
+                        lyricsValues.put("fixed", cursor.getString(1))
+                        lyricsValues.put("synced", cursor.getString(2))
+                        it.insert("Lyrics", CONFLICT_IGNORE, lyricsValues)
+                    }
                 }
-            }
 
             it.execSQL("CREATE TABLE IF NOT EXISTS Song_new (`id` TEXT NOT NULL, `title` TEXT NOT NULL, `artistsText` TEXT, `durationText` TEXT, `thumbnailUrl` TEXT, `likedAt` INTEGER, `totalPlayTimeMs` INTEGER NOT NULL, PRIMARY KEY(`id`))")
             it.execSQL("INSERT INTO Song_new(id, title, artistsText, durationText, thumbnailUrl, likedAt, totalPlayTimeMs) SELECT id, title, artistsText, durationText, thumbnailUrl, likedAt, totalPlayTimeMs FROM Song;")

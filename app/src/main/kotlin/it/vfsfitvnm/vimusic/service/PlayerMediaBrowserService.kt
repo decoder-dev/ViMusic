@@ -1,7 +1,5 @@
 package it.vfsfitvnm.vimusic.service
 
-import android.media.MediaDescription as BrowserMediaDescription
-import android.media.browse.MediaBrowser.MediaItem as BrowserMediaItem
 import android.content.ComponentName
 import android.content.ContentResolver
 import android.content.Context
@@ -34,6 +32,8 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import android.media.MediaDescription as BrowserMediaDescription
+import android.media.browse.MediaBrowser.MediaItem as BrowserMediaItem
 
 class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
@@ -238,7 +238,7 @@ class PlayerMediaBrowserService : MediaBrowserService(), ServiceConnection {
                 val mediaItems = when (data.getOrNull(0)) {
                     MediaId.shuffle -> lastSongs
 
-                    MediaId.songs ->  data
+                    MediaId.songs -> data
                         .getOrNull(1)
                         ?.let { songId ->
                             index = lastSongs.indexOfFirst { it.id == songId }

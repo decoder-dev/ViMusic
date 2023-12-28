@@ -1,6 +1,5 @@
 package it.vfsfitvnm.vimusic.service
 
-import android.os.Binder as AndroidBinder
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
@@ -106,8 +105,6 @@ import it.vfsfitvnm.vimusic.utils.skipSilenceKey
 import it.vfsfitvnm.vimusic.utils.timer
 import it.vfsfitvnm.vimusic.utils.trackLoopEnabledKey
 import it.vfsfitvnm.vimusic.utils.volumeNormalizationKey
-import kotlin.math.roundToInt
-import kotlin.system.exitProcess
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -117,6 +114,9 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
 import kotlinx.coroutines.runBlocking
+import kotlin.math.roundToInt
+import kotlin.system.exitProcess
+import android.os.Binder as AndroidBinder
 
 @Suppress("DEPRECATION")
 class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListener.Callback,
@@ -480,7 +480,8 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
                     try {
                         loudnessEnhancer?.setTargetGain(-((loudnessDb ?: 0f) * 100).toInt() + 500)
                         loudnessEnhancer?.enabled = true
-                    } catch (_: Exception) { }
+                    } catch (_: Exception) {
+                    }
                 }
             }
         }
@@ -959,7 +960,8 @@ class PlayerService : InvincibleService(), Player.Listener, PlaybackStatsListene
         override fun onSeekTo(pos: Long) = player.seekTo(pos)
         override fun onStop() = player.pause()
         override fun onRewind() = player.seekToDefaultPosition()
-        override fun onSkipToQueueItem(id: Long) = runCatching { player.seekToDefaultPosition(id.toInt()) }.let { }
+        override fun onSkipToQueueItem(id: Long) =
+            runCatching { player.seekToDefaultPosition(id.toInt()) }.let { }
     }
 
     private class NotificationActionReceiver(private val player: Player) : BroadcastReceiver() {

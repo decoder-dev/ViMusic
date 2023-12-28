@@ -128,9 +128,10 @@ fun PlaylistSongList(
                     text = "Enqueue",
                     enabled = playlistPage?.songsPage?.items?.isNotEmpty() == true,
                     onClick = {
-                        playlistPage?.songsPage?.items?.map(Innertube.SongItem::asMediaItem)?.let { mediaItems ->
-                            binder?.player?.enqueue(mediaItems)
-                        }
+                        playlistPage?.songsPage?.items?.map(Innertube.SongItem::asMediaItem)
+                            ?.let { mediaItems ->
+                                binder?.player?.enqueue(mediaItems)
+                            }
                     }
                 )
 
@@ -149,7 +150,8 @@ fun PlaylistSongList(
                     icon = R.drawable.share_social,
                     color = colorPalette.text,
                     onClick = {
-                        (playlistPage?.url ?: "https://music.youtube.com/playlist?list=${browseId.removePrefix("VL")}").let { url ->
+                        (playlistPage?.url
+                            ?: "https://music.youtube.com/playlist?list=${browseId.removePrefix("VL")}").let { url ->
                             val sendIntent = Intent().apply {
                                 action = Intent.ACTION_SEND
                                 type = "text/plain"
@@ -164,7 +166,8 @@ fun PlaylistSongList(
         }
     }
 
-    val thumbnailContent = adaptiveThumbnailContent(playlistPage == null, playlistPage?.thumbnail?.url)
+    val thumbnailContent =
+        adaptiveThumbnailContent(playlistPage == null, playlistPage?.thumbnail?.url)
 
     val lazyListState = rememberLazyListState()
 
@@ -173,7 +176,7 @@ fun PlaylistSongList(
             LazyColumn(
                 state = lazyListState,
                 contentPadding = LocalPlayerAwareWindowInsets.current
-                .only(WindowInsetsSides.Vertical + WindowInsetsSides.End).asPaddingValues(),
+                    .only(WindowInsetsSides.Vertical + WindowInsetsSides.End).asPaddingValues(),
                 modifier = Modifier
                     .background(colorPalette.background0)
                     .fillMaxSize()
@@ -204,10 +207,11 @@ fun PlaylistSongList(
                                     }
                                 },
                                 onClick = {
-                                    playlistPage?.songsPage?.items?.map(Innertube.SongItem::asMediaItem)?.let { mediaItems ->
-                                        binder?.stopRadio()
-                                        binder?.player?.forcePlayAtIndex(mediaItems, index)
-                                    }
+                                    playlistPage?.songsPage?.items?.map(Innertube.SongItem::asMediaItem)
+                                        ?.let { mediaItems ->
+                                            binder?.stopRadio()
+                                            binder?.player?.forcePlayAtIndex(mediaItems, index)
+                                        }
                                 }
                             )
                     )

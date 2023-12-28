@@ -30,12 +30,12 @@ import it.vfsfitvnm.vimusic.ui.components.themed.Header
 import it.vfsfitvnm.vimusic.ui.styling.LocalAppearance
 import it.vfsfitvnm.vimusic.utils.intent
 import it.vfsfitvnm.vimusic.utils.toast
+import kotlinx.coroutines.flow.distinctUntilChanged
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.system.exitProcess
-import kotlinx.coroutines.flow.distinctUntilChanged
 
 @ExperimentalAnimationApi
 @Composable

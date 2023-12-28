@@ -159,7 +159,11 @@ class MainActivity : ComponentActivity(), PersistMapOwner {
                     mutableStateOf(
                         Appearance(
                             colorPalette = colorPalette,
-                            typography = typographyOf(colorPalette.text, useSystemFont, applyFontPadding),
+                            typography = typographyOf(
+                                colorPalette.text,
+                                useSystemFont,
+                                applyFontPadding
+                            ),
                             thumbnailShape = thumbnailRoundness.shape()
                         )
                     )
@@ -253,11 +257,17 @@ class MainActivity : ComponentActivity(), PersistMapOwner {
                             }
 
                             useSystemFontKey, applyFontPaddingKey -> {
-                                val useSystemFont = sharedPreferences.getBoolean(useSystemFontKey, false)
-                                val applyFontPadding = sharedPreferences.getBoolean(applyFontPaddingKey, false)
+                                val useSystemFont =
+                                    sharedPreferences.getBoolean(useSystemFontKey, false)
+                                val applyFontPadding =
+                                    sharedPreferences.getBoolean(applyFontPaddingKey, false)
 
                                 appearance = appearance.copy(
-                                    typography = typographyOf(appearance.colorPalette.text, useSystemFont, applyFontPadding),
+                                    typography = typographyOf(
+                                        appearance.colorPalette.text,
+                                        useSystemFont,
+                                        applyFontPadding
+                                    ),
                                 )
                             }
                         }
@@ -331,7 +341,10 @@ class MainActivity : ComponentActivity(), PersistMapOwner {
 
                 val playerAwareWindowInsets by remember(bottomDp, playerBottomSheetState.value) {
                     derivedStateOf {
-                        val bottom = playerBottomSheetState.value.coerceIn(bottomDp, playerBottomSheetState.collapsedBound)
+                        val bottom = playerBottomSheetState.value.coerceIn(
+                            bottomDp,
+                            playerBottomSheetState.collapsedBound
+                        )
 
                         windowsInsets
                             .only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)

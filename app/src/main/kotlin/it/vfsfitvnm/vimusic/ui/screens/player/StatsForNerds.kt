@@ -38,12 +38,12 @@ import it.vfsfitvnm.vimusic.ui.styling.onOverlay
 import it.vfsfitvnm.vimusic.ui.styling.overlay
 import it.vfsfitvnm.vimusic.utils.color
 import it.vfsfitvnm.vimusic.utils.medium
-import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.withContext
+import kotlin.math.roundToInt
 
 @Composable
 fun StatsForNerds(
@@ -72,27 +72,29 @@ fun StatsForNerds(
         LaunchedEffect(mediaId) {
             Database.format(mediaId).distinctUntilChanged().collectLatest { currentFormat ->
                 if (currentFormat?.itag == null) {
-                    binder.player.currentMediaItem?.takeIf { it.mediaId == mediaId }?.let { mediaItem ->
-                        withContext(Dispatchers.IO) {
-                            delay(2000)
-                            Innertube.player(PlayerBody(videoId = mediaId))?.onSuccess { response ->
-                                response.streamingData?.highestQualityFormat?.let { format ->
-                                    Database.insert(mediaItem)
-                                    Database.insert(
-                                        Format(
-                                            songId = mediaId,
-                                            itag = format.itag,
-                                            mimeType = format.mimeType,
-                                            bitrate = format.bitrate,
-                                            loudnessDb = response.playerConfig?.audioConfig?.normalizedLoudnessDb,
-                                            contentLength = format.contentLength,
-                                            lastModified = format.lastModified
-                                        )
-                                    )
-                                }
+                    binder.player.currentMediaItem?.takeIf { it.mediaId == mediaId }
+                        ?.let { mediaItem ->
+                            withContext(Dispatchers.IO) {
+                                delay(2000)
+                                Innertube.player(PlayerBody(videoId = mediaId))
+                                    ?.onSuccess { response ->
+                                        response.streamingData?.highestQualityFormat?.let { format ->
+                                            Database.insert(mediaItem)
+                                            Database.insert(
+                                                Format(
+                                                    songId = mediaId,
+                                                    itag = format.itag,
+                                                    mimeType = format.mimeType,
+                                                    bitrate = format.bitrate,
+                                                    loudnessDb = response.playerConfig?.audioConfig?.normalizedLoudnessDb,
+                                                    contentLength = format.contentLength,
+                                                    lastModified = format.lastModified
+                                                )
+                                            )
+                                        }
+                                    }
                             }
                         }
-                    }
                 } else {
                     format = currentFormat
                 }

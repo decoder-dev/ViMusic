@@ -300,7 +300,8 @@ fun ArtistOverview(
                         if (attributionsIndex != -1) {
                             BasicText(
                                 text = "From Wikipedia under Creative Commons Attribution CC-BY-SA 3.0",
-                                style = typography.xxs.color(colorPalette.textDisabled).align(TextAlign.End),
+                                style = typography.xxs.color(colorPalette.textDisabled)
+                                    .align(TextAlign.End),
                                 modifier = Modifier
                                     .padding(horizontal = 16.dp)
                                     .padding(bottom = 16.dp)

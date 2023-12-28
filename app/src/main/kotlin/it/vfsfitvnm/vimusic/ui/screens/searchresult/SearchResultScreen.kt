@@ -13,12 +13,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import it.vfsfitvnm.compose.persist.PersistMapCleanup
 import it.vfsfitvnm.compose.persist.persistMap
+import it.vfsfitvnm.compose.routing.RouteHandler
 import it.vfsfitvnm.innertube.Innertube
 import it.vfsfitvnm.innertube.models.bodies.ContinuationBody
 import it.vfsfitvnm.innertube.models.bodies.SearchBody
 import it.vfsfitvnm.innertube.requests.searchPage
 import it.vfsfitvnm.innertube.utils.from
-import it.vfsfitvnm.compose.routing.RouteHandler
 import it.vfsfitvnm.vimusic.LocalPlayerServiceBinder
 import it.vfsfitvnm.vimusic.R
 import it.vfsfitvnm.vimusic.ui.components.LocalMenuState
@@ -104,7 +104,10 @@ fun SearchResultScreen(query: String, onSearchAgain: () -> Unit) {
                                 itemsPageProvider = { continuation ->
                                     if (continuation == null) {
                                         Innertube.searchPage(
-                                            body = SearchBody(query = query, params = Innertube.SearchFilter.Song.value),
+                                            body = SearchBody(
+                                                query = query,
+                                                params = Innertube.SearchFilter.Song.value
+                                            ),
                                             fromMusicShelfRendererContent = Innertube.SongItem.Companion::from
                                         )
                                     } else {
@@ -126,9 +129,9 @@ fun SearchResultScreen(query: String, onSearchAgain: () -> Unit) {
                                                 onLongClick = {
                                                     menuState.display {
                                                         NonQueuedMediaItemMenu(
-                                        onDismiss = menuState::hide,
-                                        mediaItem = song.asMediaItem,
-                                    )
+                                                            onDismiss = menuState::hide,
+                                                            mediaItem = song.asMediaItem,
+                                                        )
                                                     }
                                                 },
                                                 onClick = {
@@ -154,7 +157,10 @@ fun SearchResultScreen(query: String, onSearchAgain: () -> Unit) {
                                 itemsPageProvider = { continuation ->
                                     if (continuation == null) {
                                         Innertube.searchPage(
-                                            body = SearchBody(query = query, params = Innertube.SearchFilter.Album.value),
+                                            body = SearchBody(
+                                                query = query,
+                                                params = Innertube.SearchFilter.Album.value
+                                            ),
                                             fromMusicShelfRendererContent = Innertube.AlbumItem::from
                                         )
                                     } else {
@@ -191,7 +197,10 @@ fun SearchResultScreen(query: String, onSearchAgain: () -> Unit) {
                                 itemsPageProvider = { continuation ->
                                     if (continuation == null) {
                                         Innertube.searchPage(
-                                            body = SearchBody(query = query, params = Innertube.SearchFilter.Artist.value),
+                                            body = SearchBody(
+                                                query = query,
+                                                params = Innertube.SearchFilter.Artist.value
+                                            ),
                                             fromMusicShelfRendererContent = Innertube.ArtistItem::from
                                         )
                                     } else {
@@ -229,7 +238,10 @@ fun SearchResultScreen(query: String, onSearchAgain: () -> Unit) {
                                 itemsPageProvider = { continuation ->
                                     if (continuation == null) {
                                         Innertube.searchPage(
-                                            body = SearchBody(query = query, params = Innertube.SearchFilter.Video.value),
+                                            body = SearchBody(
+                                                query = query,
+                                                params = Innertube.SearchFilter.Video.value
+                                            ),
                                             fromMusicShelfRendererContent = Innertube.VideoItem::from
                                         )
                                     } else {

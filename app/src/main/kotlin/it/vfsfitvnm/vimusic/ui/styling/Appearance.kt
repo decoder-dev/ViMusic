@@ -24,8 +24,8 @@ data class Appearance(
 
         override fun SaverScope.save(value: Appearance) =
             listOf(
-                with (ColorPalette.Companion) { save(value.colorPalette) },
-                with (Typography.Companion) { save(value.typography) },
+                with(ColorPalette.Companion) { save(value.colorPalette) },
+                with(Typography.Companion) { save(value.typography) },
                 when (value.thumbnailShape) {
                     RoundedCornerShape(2.dp) -> 2
                     RoundedCornerShape(4.dp) -> 4

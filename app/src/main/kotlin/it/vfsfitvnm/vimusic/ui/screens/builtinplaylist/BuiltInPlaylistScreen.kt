@@ -20,10 +20,12 @@ fun BuiltInPlaylistScreen(builtInPlaylist: BuiltInPlaylist) {
     val saveableStateHolder = rememberSaveableStateHolder()
 
     val (tabIndex, onTabIndexChanged) = rememberSaveable {
-        mutableStateOf(when (builtInPlaylist) {
-            BuiltInPlaylist.Favorites -> 0
-            BuiltInPlaylist.Offline -> 1
-        })
+        mutableStateOf(
+            when (builtInPlaylist) {
+                BuiltInPlaylist.Favorites -> 0
+                BuiltInPlaylist.Offline -> 1
+            }
+        )
     }
 
     PersistMapCleanup(tagPrefix = "${builtInPlaylist.name}/")

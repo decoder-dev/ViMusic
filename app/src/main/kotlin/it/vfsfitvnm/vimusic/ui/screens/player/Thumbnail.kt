@@ -39,8 +39,8 @@ import it.vfsfitvnm.vimusic.service.VideoIdMismatchException
 import it.vfsfitvnm.vimusic.ui.styling.Dimensions
 import it.vfsfitvnm.vimusic.ui.styling.LocalAppearance
 import it.vfsfitvnm.vimusic.ui.styling.px
-import it.vfsfitvnm.vimusic.utils.currentWindow
 import it.vfsfitvnm.vimusic.utils.DisposableListener
+import it.vfsfitvnm.vimusic.utils.currentWindow
 import it.vfsfitvnm.vimusic.utils.thumbnail
 import java.net.UnknownHostException
 import java.nio.channels.UnresolvedAddressException
@@ -117,7 +117,7 @@ fun Thumbnail(
             )
         },
         contentAlignment = Alignment.Center
-    ) {currentWindow ->
+    ) { currentWindow ->
         Box(
             modifier = modifier
                 .aspectRatio(1f)

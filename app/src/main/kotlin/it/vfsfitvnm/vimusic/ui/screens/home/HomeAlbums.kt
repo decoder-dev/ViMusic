@@ -2,6 +2,7 @@ package it.vfsfitvnm.vimusic.ui.screens.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.LinearEasing
+import kotlinx.coroutines.flow.collect
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -58,7 +59,7 @@ fun HomeAlbums(
     var items by persist<List<Album>>(tag = "home/albums", emptyList())
 
     LaunchedEffect(sortBy, sortOrder) {
-        Database.albums(sortBy, sortOrder).collect { items = it }
+        Database.albums(sortBy, sortOrder).collect { items = items }
     }
 
     val thumbnailSizeDp = Dimensions.thumbnails.song * 2
@@ -139,4 +140,8 @@ fun HomeAlbums(
             onClick = onSearchClick
         )
     }
+}
+
+private fun Any.collect(function: () -> Unit) {
+    TODO("Not yet implemented")
 }

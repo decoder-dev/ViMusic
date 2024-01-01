@@ -201,7 +201,7 @@ interface Database {
     @Query("SELECT * FROM Album WHERE bookmarkedAt IS NOT NULL ORDER BY bookmarkedAt DESC")
     fun albumsByRowIdDesc(): Flow<List<Album>>
 
-    fun albums(sortBy: AlbumSortBy, sortOrder: SortOrder): Flow<List<Album>> {
+    fun albums(sortBy: AlbumSortBy, sortOrder: SortOrder): Any {
         return when (sortBy) {
             AlbumSortBy.Title -> when (sortOrder) {
                 SortOrder.Ascending -> albumsByTitleAsc()
@@ -217,6 +217,8 @@ interface Database {
                 SortOrder.Ascending -> albumsByRowIdAsc()
                 SortOrder.Descending -> albumsByRowIdDesc()
             }
+
+            else -> {}
         }
     }
 

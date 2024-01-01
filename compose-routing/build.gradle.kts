@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "it.vfsfitvnm.compose.routing"
+    namespace = "it.decoder.compose.routing"
     compileSdk = 33
 
     defaultConfig {

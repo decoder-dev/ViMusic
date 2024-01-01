@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="Theme.ViMusic" parent="@android:style/Theme.Holo.NoActionBar">
+    <style name="Theme.music" parent="@android:style/Theme.Holo.NoActionBar">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
@@ -13,7 +13,7 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.ViMusic.NoActionBar" parent="Theme.ViMusic">
+    <style name="Theme.music.NoActionBar" parent="Theme.music">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
